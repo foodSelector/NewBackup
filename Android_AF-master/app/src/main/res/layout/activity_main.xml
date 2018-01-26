@@ -21,6 +21,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!--<EditText-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="어디서 드세요"/>-->
                 <LinearLayout
                     android:id="@+id/alone"
                     android:layout_width="match_parent"

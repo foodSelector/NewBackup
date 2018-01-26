@@ -20,8 +20,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static String msgStack = "";
-    String[] name_list;
     Elements elements;
+    ArrayList<String> textList;
 
     @BindView(R.id.alone) LinearLayout alone;
     @BindView(R.id.date)   LinearLayout date;
@@ -44,35 +44,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         Intent intent;
-        //스위치 안 전부 수빈이가 함
+
+        ResConnection res = new ResConnection();
+        res.execute();
+
         switch (view.getId()) {
             case R.id.alone:
                 intent = new Intent(this, Alone.class);
-                Toast.makeText(getApplicationContext(), name_list[0], Toast.LENGTH_LONG).show();
-                for (int i=0; i < elements.size(); i++) {
-                    intent.putExtra("a"+i+1, name_list[i]);
-                }
+//                for (int i=1; i < elements.size(); i++) {
+//                    intent.putExtra("a"+i, textList.get(i-1));
+//                }
+                intent.putExtra("a1","");
+                intent.putExtra("a2","혼밥의 고수");
+                intent.putExtra("a3","오늘도나혼자밥");
+                intent.putExtra("a4","혼밥혼밥");
                 startActivity(intent);
                 break;
             case R.id.date:
                 intent = new Intent(MainActivity.this, Date.class);
-                for (int i=0; i < elements.size(); i++) {
-                    intent.putExtra("a"+i+1, name_list[i]);
-                }
+//                for (int i=0; i < elements.size(); i++) {
+//                    intent.putExtra("a"+i+1, name_list[i]);
+//                }
                 startActivity(intent);
                 break;
             case R.id.friend:
                 intent = new Intent(MainActivity.this, Friend.class);
-                for (int i=0; i < elements.size(); i++) {
-                    intent.putExtra("a"+i+1, name_list[i]);
-                }
+//                for (int i=0; i < elements.size(); i++) {
+//                    intent.putExtra("a"+i+1, name_list[i]);
+//                }
                 startActivity(intent);
                 break;
             case R.id.family:
                 intent = new Intent(MainActivity.this, Family.class);
-                for (int i=0; i < elements.size(); i++) {
-                    intent.putExtra("a"+i+1, name_list[i]);
-                }
+//                for (int i=0; i < elements.size(); i++) {
+//                    intent.putExtra("a"+i+1, name_list[i]);
+//                }
                 startActivity(intent);
                 break;
         }
@@ -92,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 System.out.println(elements);
 
-                ArrayList<String> textList = new ArrayList<String>();
+                textList = new ArrayList<String>();
 
                 for (int i=0; i < elements.size(); i++) {
                     textList.add(elements.get(i).attr("title").toString());
@@ -112,12 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 msgStack += textList.get(i) + " ";
             }
 
-//            Toast.makeText(getApplicationContext(), msgStack, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), msgStack, Toast.LENGTH_LONG).show();
 
-            //여기 수빈이가 함
-            for (int i = 0; i < textList.size(); i++) {
-                name_list = msgStack.split(" ");
-            }
         }
     }
 }

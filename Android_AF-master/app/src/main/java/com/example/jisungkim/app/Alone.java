@@ -24,6 +24,8 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPointBounds;
 import net.daum.mf.map.api.MapView;
 
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Alone extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
+    Elements elements;
 
     ArrayList<MyItem> arItem;
     String text ,text2, text3, text4;
@@ -44,11 +47,9 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
     @BindView(R.id.fab_gps) FloatingActionButton fab_gps;
 
     private static final String LOG_TAG = "LocationDemoActivity";
-
+    String[] msgStack[];
     private MapView mMapView;
     private MapPOIItem mDefaultMarker;
-
-
 
     class CustomCalloutBalloonAdapter implements CalloutBalloonAdapter {
         private final View mCalloutBalloon;
@@ -100,10 +101,17 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
         final ArrayList<MyItem> arItem=new ArrayList();
 
         String text = intent.getStringExtra("a1");
-        String text2=intent.getStringExtra("a2");
-        String text3=intent.getStringExtra("a3");
-        String text4=intent.getStringExtra("a4");
+        String text2 = intent.getStringExtra("a2");
+        String text3 = intent.getStringExtra("a3");
+        String text4 = intent.getStringExtra("a4");
 
+//        for (int i=1; i < elements.size(); i++) {
+//            text[i]=intent.getStringExtra("a"+i);
+//
+//            arItem.add(new MyItem("A",text[i],"2인 2만원대"));
+            /*String text = intent.getStringExtra("a"+i);
+            arItem.add(new MyItem("A",text,"2인 2만원대"));*/
+//        }
 
         arItem.add(new MyItem("A",text,"2인 2만원대"));
         arItem.add(new MyItem("B",text2,"2인 1만원대"));
@@ -128,14 +136,11 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
  */
                 ImageButton btn = (ImageButton) view.findViewById(R.id.btn);
 
-         if(btn.getVisibility()==View.INVISIBLE) {
-//지도마커 연동
+         if(btn.getVisibility()==View.INVISIBLE) {//지도마커 연동
              MapPOIItem[] poiItems = mMapView.getPOIItems();
-
              if(poiItems.length > 0) {
                  mMapView.selectPOIItem(poiItems[position], false);
              }
-
              btn.setVisibility(View.VISIBLE);
              btn.setFocusable(false);
          }
@@ -149,7 +154,6 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
          }
             }
         });
-
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -175,9 +179,7 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
     }
 
     public void mOnClick(View v){
-
         switch(v.getId()){
-
             case R.id.rankbtn:
                 arItem=new ArrayList<MyItem>();
                 MyItem mi1;
@@ -228,8 +230,7 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
     }
 
     @Override
-    public void onMapViewInitialized(MapView mapView) {
-    }
+    public void onMapViewInitialized(MapView mapView) {}
 
     private void createDefaultMarker(MapView mapView) {
         for(int i=0 ; i < 4 ; i++) {
@@ -270,8 +271,7 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
     public void onMapViewZoomLevelChanged(MapView mapView, int i) {}
 
     @Override
-    public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-    }
+    public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {}
 
     @Override
     public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {}
@@ -300,7 +300,6 @@ public class Alone extends AppCompatActivity implements MapView.CurrentLocationE
 
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-
     }
 
     @Override
